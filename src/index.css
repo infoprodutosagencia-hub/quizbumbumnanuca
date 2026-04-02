@@ -20,6 +20,12 @@
   overflow-x: hidden;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button, [role="button"] {
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 body {

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Camera, Check, ChevronRight, Clock, Calendar as CalendarIcon, Utensils, Zap, Users, Trophy, Star, Shield, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Camera, Check, ChevronRight, Clock, Zap, Users, Trophy, Star, Shield, AlertTriangle, ShieldCheck } from 'lucide-react';
 
 // --- Types ---
 type Screen = 
@@ -55,11 +55,10 @@ const Placeholder: React.FC<PlaceholderProps> = ({ text, width = '100%', height 
             imageRendering: 'auto',
             filter: 'contrast(1.1) brightness(1.05) saturate(1.15) blur(0.3px) drop-shadow(0 0 15px rgba(0,0,0,0.4))',
             objectPosition: objectPosition,
-            transform: 'scale(1.02)' // Slightly overscale to hide edge artifacts
+            transform: 'scale(1.02)'
           }}
           referrerPolicy="no-referrer"
         />
-        {/* HD Enhancement Overlays */}
         <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none mix-blend-screen bg-[url('https://www.transparenttextures.com/patterns/micro-carbon.png')]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90" />
@@ -177,7 +176,7 @@ export default function App() {
     setTimeout(() => {
       setState(prev => ({ ...prev, screen: next }));
       window.scrollTo(0, 0);
-    }, 400);
+    }, 200);
   };
 
   // --- Screens ---
@@ -195,6 +194,7 @@ export default function App() {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         className="flex flex-col items-center p-6 pt-16 text-center min-h-screen bg-black"
       >
         <motion.div
@@ -234,13 +234,14 @@ export default function App() {
             </div>
           </div>
 
-          <button 
+          <motion.button 
+            whileTap={{ scale: 0.95 }}
             onClick={() => nextScreen('AUTHORITY')}
-            className="w-full max-w-xs bg-white text-black font-black py-6 rounded-full text-lg relative overflow-hidden active:scale-95 transition-all duration-300 hover:bg-primary hover:text-white group"
+            className="w-full max-w-xs bg-white text-black font-black py-6 rounded-full text-lg relative overflow-hidden transition-all duration-300 hover:bg-primary hover:text-white group cursor-pointer"
           >
             <span className="relative z-10">INICIAR DIAGNÓSTICO</span>
             <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-          </button>
+          </motion.button>
         </motion.div>
       </motion.div>
     );
@@ -251,6 +252,7 @@ export default function App() {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         className="p-6 pt-16 min-h-screen bg-black"
       >
         <div className="max-w-md mx-auto">
@@ -297,13 +299,14 @@ export default function App() {
             Reconhecido como uma das maiores autoridades em treino feminino focado em glúteos, especializado em ativação, firmeza e projeção do bumbum sem academia.
           </p>
 
-          <button 
+          <motion.button 
+            whileTap={{ scale: 0.95 }}
             onClick={() => nextScreen('Q1')}
-            className="w-full bg-white text-black font-black py-6 rounded-full text-lg relative overflow-hidden active:scale-95 transition-all duration-300 hover:bg-primary hover:text-white group"
+            className="w-full bg-white text-black font-black py-6 rounded-full text-lg relative overflow-hidden transition-all duration-300 hover:bg-primary hover:text-white group cursor-pointer"
           >
             <span className="relative z-10">CONTINUAR</span>
             <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-          </button>
+          </motion.button>
         </div>
       </motion.div>
     );
@@ -356,8 +359,9 @@ export default function App() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 + i * 0.1 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => handleSelect(i)}
-                  className={`w-full p-6 rounded-3xl text-left transition-all duration-500 glass group relative overflow-hidden ${
+                  className={`w-full p-6 rounded-3xl text-left transition-all duration-500 glass group relative overflow-hidden cursor-pointer ${
                     selected === i ? 'bg-primary border-primary' : 'hover:bg-white/5'
                   }`}
                 >
@@ -405,6 +409,7 @@ export default function App() {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         className="p-6 pt-24 min-h-screen bg-black"
       >
         <div className="max-w-md mx-auto">
@@ -446,13 +451,14 @@ export default function App() {
             Está pronta para turbinar o seu <span className="highlight-pink">bumbum</span> também?
           </p>
           
-          <button 
+          <motion.button 
+            whileTap={{ scale: 0.95 }}
             onClick={() => nextScreen('Q6')}
-            className="w-full bg-white text-black font-black py-6 rounded-full text-lg relative overflow-hidden active:scale-95 transition-all duration-300 hover:bg-primary hover:text-white group"
+            className="w-full bg-white text-black font-black py-6 rounded-full text-lg relative overflow-hidden transition-all duration-300 hover:bg-primary hover:text-white group cursor-pointer"
           >
             <span className="relative z-10">ESTOU PRONTA! 🔥</span>
             <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-          </button>
+          </motion.button>
         </div>
       </motion.div>
     );
@@ -476,6 +482,7 @@ export default function App() {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         className="p-6 pt-32 text-center min-h-screen bg-black"
       >
         <div className="max-w-md mx-auto">
@@ -496,13 +503,14 @@ export default function App() {
 
           {error && <p className="text-primary font-bold text-sm mb-8">{error}</p>}
 
-          <button 
+          <motion.button 
+            whileTap={{ scale: 0.95 }}
             onClick={handleConfirm}
-            className="w-full bg-white text-black font-black py-6 rounded-full text-lg relative overflow-hidden active:scale-95 transition-all duration-300 hover:bg-primary hover:text-white group"
+            className="w-full bg-white text-black font-black py-6 rounded-full text-lg relative overflow-hidden transition-all duration-300 hover:bg-primary hover:text-white group cursor-pointer"
           >
             <span className="relative z-10">CONTINUAR →</span>
             <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-          </button>
+          </motion.button>
         </div>
       </motion.div>
     );
@@ -680,13 +688,14 @@ export default function App() {
             </p>
           </div>
 
-          <button 
+          <motion.button 
+            whileTap={{ scale: 0.95 }}
             onClick={() => nextScreen('Q12')}
-            className="w-full bg-white text-black font-black py-6 rounded-full text-lg relative overflow-hidden active:scale-95 transition-all duration-300 hover:bg-primary hover:text-white group"
+            className="w-full bg-white text-black font-black py-6 rounded-full text-lg relative overflow-hidden transition-all duration-300 hover:bg-primary hover:text-white group cursor-pointer"
           >
             <span className="relative z-10">VER MEU PLANO 👇</span>
             <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-          </button>
+          </motion.button>
         </div>
       </motion.div>
     );
@@ -702,6 +711,7 @@ export default function App() {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         className="p-6 pt-24 min-h-screen bg-black"
       >
         <div className="max-w-md mx-auto">
@@ -744,13 +754,14 @@ export default function App() {
 
           <div className="divider" />
 
-          <button 
+          <motion.button 
+            whileTap={{ scale: 0.95 }}
             onClick={() => nextScreen('OFFER')}
-            className="w-full bg-white text-black font-black py-6 rounded-full text-lg relative overflow-hidden active:scale-95 transition-all duration-300 hover:bg-primary hover:text-white group"
+            className="w-full bg-white text-black font-black py-6 rounded-full text-lg relative overflow-hidden transition-all duration-300 hover:bg-primary hover:text-white group cursor-pointer"
           >
             <span className="relative z-10">ACESSAR MEU PLANO! 🍑</span>
             <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-          </button>
+          </motion.button>
         </div>
       </motion.div>
     );
@@ -776,6 +787,7 @@ export default function App() {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         className="p-6 pt-16 bg-black text-white min-h-screen"
       >
         <div className="max-w-md mx-auto">
@@ -854,13 +866,17 @@ export default function App() {
               <span>PROPOSTA VÁLIDA POR: {formatTime(timeLeft)}</span>
             </div>
 
-            <button 
-              onClick={playClickSound}
-              className="w-full bg-white text-black font-black py-7 rounded-full text-lg relative overflow-hidden active:scale-95 transition-all duration-300 hover:bg-primary hover:text-white group shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+            <motion.button 
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                playClickSound();
+                window.location.href = 'https://go.perfectpay.com.br/PPU38CQ9QLE';
+              }}
+              className="w-full bg-white text-black font-black py-7 rounded-full text-lg relative overflow-hidden transition-all duration-300 hover:bg-primary hover:text-white group shadow-[0_20px_40px_rgba(0,0,0,0.5)] cursor-pointer"
             >
               <span className="relative z-10">GARANTIR MINHA VAGA 🔥</span>
               <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-            </button>
+            </motion.button>
           </div>
 
           <div className="space-y-8 mb-16">
@@ -925,19 +941,22 @@ export default function App() {
             </div>
           </div>
 
-          {/* Segundo Bloco CTA */}
           <div className="glass p-10 rounded-[3rem] border border-primary/20 text-center mb-16 shadow-2xl bg-primary/5">
             <h4 className="font-serif italic text-2xl text-white mb-6 uppercase">APP DESAFIO BUMBUM SEXY</h4>
             <p className="text-white/40 line-through text-sm mb-2">De R$ 297,00</p>
             <p className="text-white font-serif italic text-4xl mb-2">Por apenas <span className="text-primary">R$ 27,90</span></p>
             <p className="text-white/40 text-xs mb-10 italic">Menos de R$ 0,97 por dia</p>
             
-            <button 
-              onClick={playClickSound}
-              className="w-full bg-primary text-white font-black py-7 rounded-full text-sm relative overflow-hidden active:scale-95 transition-all duration-300 group shadow-[0_20px_40px_rgba(233,84,162,0.3)] mb-8 uppercase tracking-tighter"
+            <motion.button 
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                playClickSound();
+                window.location.href = 'https://go.perfectpay.com.br/PPU38CQ9QLE';
+              }}
+              className="w-full bg-primary text-white font-black py-7 rounded-full text-sm relative overflow-hidden transition-all duration-300 group shadow-[0_20px_40px_rgba(233,84,162,0.3)] mb-8 uppercase tracking-tighter cursor-pointer"
             >
               <span className="relative z-10">QUERO GARANTIR MINHA VAGA COM DESCONTO 🔥</span>
-            </button>
+            </motion.button>
 
             <p className="text-primary font-black text-[0.65rem] uppercase tracking-widest mb-8 flex items-center justify-center gap-2">
               <AlertTriangle size={14} />
@@ -959,7 +978,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Garantia */}
           <div className="glass p-10 rounded-[3rem] border border-white/10 text-center mb-16 relative overflow-hidden">
             <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
               <ShieldCheck className="text-primary" size={40} />
@@ -981,177 +999,114 @@ export default function App() {
     );
   };
 
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
-
-  const minSwipeDistance = 50;
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const onTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientX);
-
-  const onTouchEnd = (next: Screen, cmToAdd: number) => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-    
-    if (isLeftSwipe) {
-      // Swipe left = advance (equivalent to choosing first option for demo or just advancing)
-      // For a real quiz, swipe might not be the best for "choosing", but the prompt says:
-      // "Swipe para esquerda = avança (equivale a escolher e confirmar)"
-      // I'll make it pick the first option if no option is selected, or just advance if possible.
-      nextScreen(next, cmToAdd);
-    } else if (isRightSwipe) {
-      // Swipe right = blocked effect
-      setFlash(true);
-      setTimeout(() => setFlash(false), 200);
-    }
-  };
-
-  // --- Render Logic ---
-
   const renderScreen = () => {
-    const swipeHandlers = (next: Screen, cm: number) => ({
-      onTouchStart,
-      onTouchMove,
-      onTouchEnd: () => onTouchEnd(next, cm)
-    });
-
     switch (state.screen) {
       case 'LANDING': return <Landing />;
       case 'AUTHORITY': return <Authority />;
       case 'Q1': return (
-        <div {...swipeHandlers('Q2', 0.8)}>
-          <Question 
-            title="Vamos começar! Responda atentamente!"
-            question={<>Atualmente você está satisfeita com o <span className="highlight-pink">tamanho e formato</span> do seu bumbum?</>}
-            options={["☹️ Estou Insatisfeita", "😀 Estou satisfeita, mas quero melhorar"]}
-            cmMap={[0.8, 0.5]}
-            next="Q2"
-          />
-        </div>
+        <Question 
+          title="Vamos começar! Responda atentamente!"
+          question={<>Atualmente você está satisfeita com o <span className="highlight-pink">tamanho e formato</span> do seu bumbum?</>}
+          options={["☹️ Estou Insatisfeita", "😀 Estou satisfeita, mas quero melhorar"]}
+          cmMap={[0.8, 0.5]}
+          next="Q2"
+        />
       );
       case 'Q2': return (
-        <div {...swipeHandlers('Q3', 1.0)}>
-          <Question 
-            question={<>O que mais te <span className="highlight-pink">incomoda</span> ao olhar no espelho?</>}
-            options={["😩 Meu bumbum pequeno ou sem volume", "😢 A falta de firmeza ou definição", "😁 Tudo está bem, só quero melhorar ainda mais"]}
-            cmMap={[1.0, 0.8, 0.5]}
-            next="Q3"
-          />
-        </div>
+        <Question 
+          question={<>O que mais te <span className="highlight-pink">incomoda</span> ao olhar no espelho?</>}
+          options={["😩 Meu bumbum pequeno ou sem volume", "😢 A falta de firmeza ou definição", "😁 Tudo está bem, só quero melhorar ainda mais"]}
+          cmMap={[1.0, 0.8, 0.5]}
+          next="Q3"
+        />
       );
       case 'Q3': return (
-        <div {...swipeHandlers('Q4', 1.2)}>
-          <Question 
-            question={<>Você já <span className="highlight-pink">desistiu de usar roupas</span> como vestidos justos ou biquínis por não se sentir confiante?</>}
-            options={["🤯 Sim, várias vezes", "🥹 Algumas vezes, mas tento contornar", "😁 Não, isso não é um problema para mim"]}
-            cmMap={[1.2, 0.8, 0.5]}
-            next="Q4"
-          />
-        </div>
+        <Question 
+          question={<>Você já <span className="highlight-pink">desistiu de usar roupas</span> como vestidos justos ou biquínis por não se sentir confiante?</>}
+          options={["🤯 Sim, várias vezes", "🥹 Algumas vezes, mas tento contornar", "😁 Não, isso não é um problema para mim"]}
+          cmMap={[1.2, 0.8, 0.5]}
+          next="Q4"
+        />
       );
       case 'Q4': return (
-        <div {...swipeHandlers('Q5', 1.5)}>
-          <Question 
-            question={<>Você acredita que é possível transformar seu bumbum com <span className="highlight-pink">treinos rápidos e direcionados</span>, feitos em casa?</>}
-            options={["💪 Sim, acredito que é possível", "🤔 Talvez, mas nunca vi algo funcionar para mim", "✨ Me sentir mais saudável e com mais energia", "🙏 Não tenho certeza, mas estou disposta a tentar"]}
-            cmMap={[1.5, 0.8, 0.6, 1.0]}
-            next="Q5"
-          />
-        </div>
+        <Question 
+          question={<>Você acredita que é possível transformar seu bumbum com <span className="highlight-pink">treinos rápidos e direcionados</span>, feitos em casa?</>}
+          options={["💪 Sim, acredito que é possível", "🤔 Talvez, mas nunca vi algo funcionar para mim", "🙏 Não tenho certeza, mas estou disposta a tentar"]}
+          cmMap={[1.5, 0.8, 0.6]}
+          next="Q5"
+        />
       );
       case 'Q5': return (
-        <div {...swipeHandlers('SOCIAL_PROOF_INTER', 1.5)}>
-          <Question 
-            question={<>Se existisse um <span className="highlight-pink">método testado e aprovado</span> que combinasse treinos curtos com um plano alimentar simples, você toparia experimentar?</>}
-            options={["😁 Sim, com certeza", "🤨 Dependeria dos resultados prometidos", "😏 Talvez, se for algo acessível e fácil de fazer"]}
-            cmMap={[1.5, 0.8, 1.0]}
-            next="SOCIAL_PROOF_INTER"
-          />
-        </div>
+        <Question 
+          question={<>Se existisse um <span className="highlight-pink">método testado e aprovado</span> que combinasse treinos curtos com um plano alimentar simples, você toparia experimentar?</>}
+          options={["😁 Sim, com certeza", "🤨 Dependeria dos resultados prometidos", "😏 Talvez, se for algo acessível e fácil de fazer"]}
+          cmMap={[1.5, 0.8, 1.0]}
+          next="SOCIAL_PROOF_INTER"
+        />
       );
       case 'SOCIAL_PROOF_INTER': return <SocialProofInter />;
       case 'Q6': return (
-        <div {...swipeHandlers('Q7', 1.0)}>
-          <Question 
-            question="Quantos minutos por dia você consegue dedicar ao seu treino?"
-            options={["🕰 Menos de 10 minutos", "🕰 Entre 10 e 20 minutos", "🕰 Mais de 20 minutos"]}
-            cmMap={[0.8, 1.0, 1.2]}
-            next="Q7"
-          />
-        </div>
+        <Question 
+          question="Quantos minutos por dia você consegue dedicar ao seu treino?"
+          options={["🕰 Menos de 10 minutos", "🕰 Entre 10 e 20 minutos", "🕰 Mais de 20 minutos"]}
+          cmMap={[0.8, 1.0, 1.2]}
+          next="Q7"
+        />
       );
       case 'Q7': return (
-        <div {...swipeHandlers('Q8', 1.0)}>
-          <Question 
-            question="Com que frequência você conseguiria treinar por semana?"
-            options={["📅 3 vezes", "📅 4 a 5 vezes", "📅 Todos os dias"]}
-            cmMap={[0.8, 1.0, 1.5]}
-            next="Q8"
-          />
-        </div>
+        <Question 
+          question="Com que frequência você conseguiria treinar por semana?"
+          options={["📅 3 vezes", "📅 4 a 5 vezes", "📅 Todos os dias"]}
+          cmMap={[0.8, 1.0, 1.5]}
+          next="Q8"
+        />
       );
       case 'Q8': return (
-        <div {...swipeHandlers('Q9', 1.0)}>
-          <Question 
-            title="⚡ Esta é a chave do seu metabolismo! Nunzi descobriu que 90% das pessoas fazem isso errado e por isso não conseguem empinar o bumbum."
-            question="Quantas refeições você faz por dia normalmente?"
-            options={["🍽 1 a 2 refeições", "🍽🍽 3 refeições básicas ao dia", "🍽🍽🍽 4 a 5 refeições", "🔄 Como várias vezes ao dia"]}
-            cmMap={[0.5, 0.8, 1.2, 1.0]}
-            next="Q9"
-          />
-        </div>
+        <Question 
+          title="⚡ Esta é a chave do seu metabolismo! Nunzi descobriu que 90% das pessoas fazem isso errado e por isso não conseguem empinar o bumbum."
+          question="Quantas refeições você faz por dia normalmente?"
+          options={["🍽 1 a 2 refeições", "🍽🍽 3 refeições básicas ao dia", "🍽🍽🍽 4 a 5 refeições", "🔄 Como várias vezes ao dia"]}
+          cmMap={[0.5, 0.8, 1.2, 1.0]}
+          next="Q9"
+        />
       );
       case 'Q9': return <AgeQuestion />;
       case 'BUMBUM_TIMIDO': return <BumbumTimido />;
       case 'ANALYSIS': return <Analysis />;
       case 'Q12': return (
-        <div {...swipeHandlers('Q13', 1.5)}>
-          <Question 
-            question={<>Você acredita que está pronta para <span className="highlight-pink">transformar seu corpo e sua autoestima</span> de uma vez por todas?</>}
-            options={["💪 Sim, estou pronta", "🥹 Estou quase lá, só preciso de um empurrão", "🔥 Preciso de mais motivação para começar"]}
-            cmMap={[1.5, 1.0, 0.8]}
-            next="Q13"
-          />
-        </div>
+        <Question 
+          question={<>Você acredita que está pronta para <span className="highlight-pink">transformar seu corpo e sua autoestima</span> de uma vez por todas?</>}
+          options={["💪 Sim, estou pronta", "🥹 Estou quase lá, só preciso de um empurrão", "🔥 Preciso de mais motivação para começar"]}
+          cmMap={[1.5, 1.0, 0.8]}
+          next="Q13"
+        />
       );
       case 'Q13': return (
-        <div {...swipeHandlers('Q14', 1.5)}>
-          <Question 
-            title="Escolha seu objetivo ideal — usaremos essa informação para criar um plano que funcione especialmente para você."
-            question={<>Qual destes bumbuns você <span className="highlight-pink">sonha em conseguir</span>? 👇</>}
-            options={["Levantado", "Esculpido", "Musculoso", "Redondinho"]}
-            icons={[<Zap size={20} />, <Trophy size={20} />, <Star size={20} />, <Check size={20} />]}
-            cmMap={[1.5, 1.5, 1.5, 1.5]}
-            next="Q14"
-          />
-        </div>
+        <Question 
+          title="Escolha seu objetivo ideal — usaremos essa informação para criar um plano que funcione especialmente para você."
+          question={<>Qual destes bumbuns você <span className="highlight-pink">sonha em conseguir</span>? 👇</>}
+          options={["Levantado", "Esculpido", "Musculoso", "Redondinho"]}
+          icons={[<Zap size={20} />, <Trophy size={20} />, <Star size={20} />, <Check size={20} />]}
+          cmMap={[1.5, 1.5, 1.5, 1.5]}
+          next="Q14"
+        />
       );
       case 'Q14': return (
-        <div {...swipeHandlers('Q15', 0.5)}>
-          <Question 
-            title="Conhecer seu sabotador interno é fundamental. Coach Nunzi criou estratégias específicas para vencer cada um desses obstáculos."
-            question={<>Qual seu maior <span className="highlight-pink">sabotador interno</span> atual?</>}
-            options={["😴 Falta de motivação constante", "🍫 Ansiedade e compulsão alimentar", "⏰ Rotina corrida sem tempo", "🤷 Não sei por onde começar", "💔 Baixa autoestima me sabota"]}
-            cmMap={[0.5, 0.5, 0.5, 0.5, 0.5]}
-            next="Q15"
-          />
-        </div>
+        <Question 
+          title="Conhecer seu sabotador interno é fundamental. Coach Nunzi criou estratégias específicas para vencer cada um desses obstáculos."
+          question={<>Qual seu maior <span className="highlight-pink">sabotador interno</span> atual?</>}
+          options={["😴 Falta de motivação constante", "🍫 Ansiedade e compulsão alimentar", "⏰ Rotina corrida sem tempo", "🤷 Não sei por onde começar", "💔 Baixa autoestima me sabota"]}
+          cmMap={[0.5, 0.5, 0.5, 0.5, 0.5]}
+          next="Q15"
+        />
       );
       case 'Q15': return (
-        <div {...swipeHandlers('EVOLUTION_GRAPH', 2.0)}>
-          <Question 
-            question={<>Está pronta para <span className="highlight-pink">empinar seu bumbum em até 28 dias</span>? 🔥</>}
-            options={["✅ SIM, ESTOU 100% COMPROMETIDA", "🚀 ABSOLUTAMENTE, VOU DAR O MEU MÁXIMO", "💪 COM CERTEZA, QUERO COMEÇAR HOJE", "🤔 AINDA ESTOU PENSANDO"]}
-            cmMap={[2.0, 2.0, 2.0, 0.5]}
-            next="EVOLUTION_GRAPH"
-          />
-        </div>
+        <Question 
+          question={<>Está pronta para <span className="highlight-pink">empinar seu bumbum em até 28 dias</span>? 🔥</>}
+          options={["✅ SIM, ESTOU 100% COMPROMETIDA", "🚀 ABSOLUTAMENTE, VOU DAR O MEU MÁXIMO", "💪 COM CERTEZA, QUERO COMEÇAR HOJE", "🤔 AINDA ESTOU PENSANDO"]}
+          cmMap={[2.0, 2.0, 2.0, 0.5]}
+          next="EVOLUTION_GRAPH"
+        />
       );
       case 'EVOLUTION_GRAPH': return <EvolutionGraph />;
       case 'OFFER': return <Offer />;
@@ -1162,14 +1117,14 @@ export default function App() {
   const showMeter = !['LANDING', 'AUTHORITY', 'OFFER'].includes(state.screen);
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="max-w-[480px] mx-auto relative min-h-screen overflow-x-hidden shadow-2xl bg-black">
+    <div className="min-h-screen bg-black text-white selection:bg-primary/30 touch-manipulation">
+      <div className="max-w-[480px] mx-auto relative min-h-screen overflow-x-hidden shadow-2xl bg-black touch-manipulation">
         <Meter cm={state.totalCM} show={showMeter} />
         
         <AnimatePresence mode="wait">
-          <div key={state.screen}>
+          <motion.div key={state.screen} className="w-full">
             {renderScreen()}
-          </div>
+          </motion.div>
         </AnimatePresence>
 
         {flash && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.3 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-white pointer-events-none z-[100]" />}
@@ -1186,7 +1141,6 @@ export default function App() {
             </motion.div>
           </div>
         )}
-
       </div>
     </div>
   );
