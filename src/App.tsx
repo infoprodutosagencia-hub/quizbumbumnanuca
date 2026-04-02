@@ -205,7 +205,7 @@ export default function App() {
         >
           <div className="space-y-6 mb-12">
             <h1 className="font-serif italic text-4xl sm:text-5xl lg:text-6xl leading-[1] tracking-tight">
-              Aumenta e levanta seu <span className="highlight-pink">bumbum</span> em apenas <span className="highlight-pink">28 dias</span>
+              Turbine o seu <span className="highlight-pink">bumbum</span> em apenas <span className="highlight-pink">28 dias</span>
             </h1>
             <p className="text-white/40 uppercase tracking-[0.3em] text-[0.65rem] font-bold">Com apenas 8 minutos por dia</p>
           </div>
